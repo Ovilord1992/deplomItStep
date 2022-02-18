@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import ru.roculka.roculka.entity.UserEntity;
+import ru.roculka.roculka.entity.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +29,7 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
 
-    public static UserDetailsImpl build(UserEntity user) {
+    public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(roles -> new SimpleGrantedAuthority(roles.getName().name()))
                 .collect(Collectors.toList());

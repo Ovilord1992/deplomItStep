@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.roculka.roculka.entity.UserEntity;
+import ru.roculka.roculka.entity.User;
 import ru.roculka.roculka.repo.UserRepository;
 
 @Service
@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     //получаем данные о пользователи из базы
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByUsername(username)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found wish username"));
         return UserDetailsImpl.build(user);
     }

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.roculka.roculka.config.jwt.JwtUtils;
 import ru.roculka.roculka.entity.ERole;
 import ru.roculka.roculka.entity.Roles;
-import ru.roculka.roculka.entity.UserEntity;
+import ru.roculka.roculka.entity.User;
 import ru.roculka.roculka.pojo.JwtResponse;
 import ru.roculka.roculka.pojo.LoginRequest;
 import ru.roculka.roculka.pojo.MessageResponse;
@@ -86,7 +86,7 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is exist"));
         }
 
-        UserEntity user = new UserEntity(signupRequest.getUsername(),
+        User user = new User(signupRequest.getUsername(),
                 passwordEncoder.encode(signupRequest.getPassword()),
                 signupRequest.getEmail());
 
@@ -101,26 +101,24 @@ public class AuthController {
         } else {
             reqRoles.forEach(r -> {
                 switch (r) {
-                    case "admin":
+                    case "admin" -> {
                         Roles adminRole = roleRepository
                                 .findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error, Role ADMIN is not found"));
                         roles.add(adminRole);
-
-                        break;
-                    case "mod":
+                    }
+                    case "mod" -> {
                         Roles modRole = roleRepository
                                 .findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error, Role MODERATOR is not found"));
                         roles.add(modRole);
-
-                        break;
-
-                    default:
+                    }
+                    default -> {
                         Roles userRole = roleRepository
                                 .findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
                         roles.add(userRole);
+                    }
                 }
             });
         }
