@@ -40,7 +40,7 @@ public class User {
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "date_birth")
     private LocalDateTime dateBirth;
-    @JsonIgnore
+    @Transient
     private Integer age;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDateTime date_create;
@@ -53,12 +53,18 @@ public class User {
     private UserLocation userLocation;
 
     @OneToMany(
-            mappedBy = "userId",
+            mappedBy = "userGet",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private Set<UserRating> userRating;
+    private Set<UserRating> userRatingGet;
 
+    @OneToMany(
+            mappedBy = "userPut",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private Set<UserRating> userRatingPut;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
