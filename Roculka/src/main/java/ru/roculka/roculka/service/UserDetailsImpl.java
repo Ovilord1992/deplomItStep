@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.roculka.roculka.entity.User;
+import ru.roculka.roculka.repo.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +28,8 @@ public class UserDetailsImpl implements UserDetails {
     @JsonIgnore
     private String password;
     private String email;
+    private Boolean isEnable;
+    private Boolean isActive;
     private Collection<? extends GrantedAuthority> authorities;
 
 
@@ -38,6 +42,8 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getPassword(),
                 user.getEmail(),
+                user.getIsEnabled(),
+                user.getIsActive(),
                 authorities);
     }
 
@@ -66,23 +72,27 @@ public class UserDetailsImpl implements UserDetails {
     }
 
 
+    //Истек ли срок действия аккаунта пользователя
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    //заблокирован или разблокирован пользователь
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isActive;
     }
 
+    //Истек ли срок действия пароля
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    //Включен или отключен пользователь
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnable;
     }
 }

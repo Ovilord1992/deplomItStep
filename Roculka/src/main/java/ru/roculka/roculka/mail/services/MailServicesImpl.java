@@ -1,6 +1,7 @@
 package ru.roculka.roculka.mail.services;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -10,10 +11,10 @@ import ru.roculka.roculka.mail.services.ServicesImp.MailServices;
 
 
 @Service
+@RequiredArgsConstructor
 public class MailServicesImpl implements MailServices {
 
-    @Autowired
-    private JavaMailSenderImpl javaMailSender;
+    private final JavaMailSenderImpl javaMailSender;
 
     @Override
     public void sendActiveMail(@NonNull Mail mail) {

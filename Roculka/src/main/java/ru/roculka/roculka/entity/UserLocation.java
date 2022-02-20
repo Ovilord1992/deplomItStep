@@ -23,6 +23,7 @@ public class UserLocation {
     @OneToOne(mappedBy = "userLocation")
     private User user;
 
+
     @PreUpdate
     private void timeUpdate(){
         date_update = LocalDateTime.now();

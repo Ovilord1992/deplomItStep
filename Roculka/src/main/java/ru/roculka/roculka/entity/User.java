@@ -33,18 +33,22 @@ public class User {
     private String country;
     private String city;
     private String address;
+    private Boolean isEnabled;
+    private Boolean isActive;
+    @Column(name = "active_code")
+    private String activeCode;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
     @Column(name = "date_birth")
     private LocalDateTime dateBirth;
     @Transient
     private Integer age;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
     private LocalDateTime date_create;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
     private LocalDateTime date_update;
 
 
@@ -80,6 +84,16 @@ public class User {
         this.email = email;
     }
 
+    @PrePersist
+    private void setDateCreate(){
+        date_create = LocalDateTime.now();
+        date_update = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void setDateUpdate(){
+        date_update = LocalDateTime.now();
+    }
 
 
     @PostLoad
