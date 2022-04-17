@@ -1,6 +1,6 @@
 package com.roculka.repository.repository;
 
-import com.roculka.security.entity.User;
+import com.roculka.repository.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
