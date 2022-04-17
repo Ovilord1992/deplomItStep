@@ -1,17 +1,18 @@
 package com.roculka.security.service;
 
+import com.roculka.repository.entity.ERole;
+import com.roculka.repository.entity.Roles;
+import com.roculka.repository.entity.User;
+import com.roculka.repository.repository.RoleRepository;
+import com.roculka.repository.repository.UserRepository;
 import com.roculka.security.config.jwt.JwtUtils;
-import com.roculka.security.entity.ERole;
-import com.roculka.security.entity.Roles;
-import com.roculka.security.entity.User;
 import com.roculka.security.pojo.JwtResponse;
 import com.roculka.security.pojo.LoginRequest;
 import com.roculka.security.pojo.MessageResponse;
 import com.roculka.security.pojo.SignupRequest;
-import com.roculka.security.repo.RoleRepository;
-import com.roculka.security.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

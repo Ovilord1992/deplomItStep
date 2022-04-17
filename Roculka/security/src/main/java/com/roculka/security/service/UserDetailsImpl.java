@@ -1,7 +1,7 @@
 package com.roculka.security.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.roculka.security.entity.User;
+import com.roculka.repository.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
